@@ -1,7 +1,7 @@
 {
     "name": "txjlrk/lock",
-    "description": "高性能, 分布式锁",
-    "keywords": ["lock", "分布式锁"],
+    "description": "high performance, distributed lock",
+    "keywords": ["lock", "distributed lock"],
     "license": "MIT",
     "type": "library",
     "minimum-stability": "dev",
@@ -18,8 +18,7 @@
     "autoload": {
         "psr-4": {
           "Lock\\": "src/",
-          "Lock\\Lock\\": "src/Lock",
-          "Lock\\Factory\\": "src/Factory"
+          "Lock\\Lock\\": "src/Lock"
         }
     }
 }

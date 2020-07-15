@@ -1,0 +1,25 @@
+{
+    "name": "txjlrk/lock",
+    "description": "高性能, 分布式锁",
+    "keywords": ["lock", "分布式锁"],
+    "license": "MIT",
+    "type": "library",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "LiuRuikang",
+            "email": "tianxingjianlrk@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "predis/predis": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+          "Lock\\": "src/",
+          "Lock\\Lock\\": "src/Lock",
+          "Lock\\Factory\\": "src/Factory"
+        }
+    }
+}

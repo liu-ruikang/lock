@@ -1,0 +1,1 @@
+C:37:"PHPUnit\Runner\DefaultTestResultCache":225:{a:2:{s:7:"defects";a:2:{s:24:"Test\LockTest::testbuild";i:4;s:24:"Test\LockTest::testBuild";i:4;}s:5:"times";a:2:{s:24:"Test\LockTest::testbuild";d:0.0070000000000000001;s:24:"Test\LockTest::testBuild";d:4.0149999999999997;}}}

@@ -4,7 +4,7 @@
  * @name BaseLock
  * @package Lock\Lock
  * @desc 锁基类
- * @author  Ruikang <liuruikang@360.cn>
+ * @author  Ruikang <tianxingjianlrk@gmail.com>
  * @date 2020年8月12日 上午10:12:20
  * @version 1.0.0
  * 

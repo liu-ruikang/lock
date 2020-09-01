@@ -4,7 +4,7 @@
  * @name RedisClient
  * @package Lock\Client
  * @desc Redis客户端对象
- * @author  Ruikang <liuruikang@360.cn>
+ * @author  Ruikang <tianxingjianlrk@gmail.com>
  * @date 2020年8月25日 上午08:12:20
  * @version 1.0.0
  * 
@@ -38,6 +38,18 @@ class RedisClient
      */
     private $redisHeartbeatTask;
 
+    /**
+     * Lua Del Script
+     */
+    const DEL_SCRIPT = <<<EOT
+if redis.call("get",KEYS[1]) == ARGV[1]
+then
+    return redis.call("del",KEYS[1])
+else
+    return 0
+end
+EOT;
+
     private function __construct(array $config)
     {
         $this->client = new Client([
@@ -51,7 +63,7 @@ class RedisClient
     }
 
     /**
-     * @name set
+     * @name set 原子加锁
      * @desc 赋值
      * @param key 锁名
      * @param value 锁值
@@ -61,14 +73,14 @@ class RedisClient
     public function set(string $key, string $value, int $ttl)
     {
         try {
-            return $this->client->set($key, $value, "NX", "EX", $ttl * 1000);
+            return $this->client->set($key, $value, "NX", "EX", $ttl);
         } catch(Exception $e) {
             throw new LockException("Error executing request", $e);
         }
     }
 
     /**
-     * @name delete
+     * @name delete 原子释放
      * @desc 释放锁
      * @param prevValue 前任锁值
      * @return 返回结果
@@ -76,10 +88,7 @@ class RedisClient
     public function delete(string $key, string $prevValue)
     {
         try {
-            $val = $this->client->get($key);
-            if ($val && $val == $prevValue) {
-                return $this->client->del($key);
-            }
+            return $this->client->eval(self::DEL_SCRIPT, 1, $key, $prevValue);
         } catch(LockException $e) {
             throw $e;
         }

@@ -4,7 +4,7 @@
  * @name EtcdClient
  * @package Lock\Client
  * @desc Etcd客户端对象：支持etcd集群节点设置，并支持etcd节点自动探活
- * @author  Ruikang <liuruikang@360.cn>
+ * @author  Ruikang <tianxingjianlrk@gmail.com>
  * @date 2020年8月13日 上午08:12:20
  * @version 1.0.0
  * 

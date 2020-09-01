@@ -4,7 +4,7 @@
  * @name EtcdHeartbeatTask
  * @package Lock\Client
  * @desc etcd 心跳任务：用于节点探活，节点重入
- * @author  Ruikang <liuruikang@360.cn>
+ * @author  Ruikang <tianxingjianlrk@gmail.com>
  * @date 2020年8月13日 上午08:12:20
  * @version 1.0.0
  * 

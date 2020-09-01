@@ -4,7 +4,7 @@
  * @name LockTest
  * @package Test
  * @desc 测试
- * @author  Ruikang <liuruikang@360.cn>
+ * @author  Ruikang <tianxingjianlrk@gmail.com>
  * @date 2020年8月19日 上午10:12:20
  * @version 1.0.0
  * 

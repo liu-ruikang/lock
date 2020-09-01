@@ -4,7 +4,7 @@
  * @name RedisLock
  * @package Lock\Lock
  * @desc Redis锁对象
- * @author  Ruikang <liuruikang@360.cn>
+ * @author  Ruikang <tianxingjianlrk@gmail.com>
  * @date 2020年8月21日 上午08:12:20
  * @version 1.0.0
  * 

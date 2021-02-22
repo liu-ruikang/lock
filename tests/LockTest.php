@@ -29,18 +29,39 @@ class LockTest extends TestCase
     * @desc 获取锁客户端
     * @return 锁客户端对象
     */
-    public function testBuild()
+    public function testEtcdBuild()
     {
         $baseUrl = [
             "http://127.0.0.1:2379",
         ];
         $lockClient = LockFactory::etcdSolution()->connections($baseUrl)->clusterName("test-server")->build();
-        $lock = $lockClient->newLock("lock_key1");
-        echo "lock_key1: " . $lock->acquire(10);
-        sleep(1);
+        $lock = $lockClient->newLock("etcd_build_lock_key1");
+        echo "etcd_build_lock_key1: " . $lock->acquire(3);
         $lock->release();
         $lockClient->close();
         $this->assertTrue(true);
+    }
+
+    /**
+    * @name build
+    * @desc 获取锁客户端
+    * @return 锁客户端对象
+    */
+    public function testRedisBuild()
+    {
+        $prefix = "lock:";
+        $config = [];
+        $lockClient = LockFactory::redisSolution()->build();
+        $lock = $lockClient->newLock("redis_build_lock_key1");
+
+        try {
+            if ($res = $lock->acquire(20, 1, 3)) {
+                echo "redis_build_lock_key1: " . $res;
+                $this->assertTrue(true);
+            }
+        } catch(LockException $e) {
+            print_r($e->getMessage());
+        }
     }
 
 }

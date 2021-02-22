@@ -27,11 +27,20 @@ use Lock\Exception\LockException;
 
 class RedisSolution extends LockClient
 {
+
+    /**
+     * Redis Client
+     */
     protected $redisClient;
 
     /**
+     * prefix
+     */
+    protected $prefix;
+
+    /**
      * @name build
-     * @return
+     * @return Object
      */
     public function build()
     {
@@ -42,19 +51,32 @@ class RedisSolution extends LockClient
     /**
      * @name newLock
      * @desc Redis锁实例
-     * @param array $baseUrl
+     * @param string $lockKey 键
+     * @param bool $reentrant 可重入
      * @return
      */
     public function newLock(string $lockKey, bool $reentrant = false)
     {
-        return new RedisLock($this->redisClient, $lockKey, $reentrant);
+        return new RedisLock($this->redisClient, $this->prefix . $lockKey, $reentrant);
+    }
+
+    public function getPrefix()
+    {
+        return $this->prefix;
+    }
+
+    public function setPrefix($prefix)
+    {
+        $this->prefix = !empty($prefix) ? $prefix . ":" : "";
     }
 
    /**
     * @name close
     * @desc 释放锁
     */
-   public function close() {}
+    public function close()
+    {
 
+    }
 }
 

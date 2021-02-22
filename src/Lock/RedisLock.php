@@ -30,7 +30,9 @@ class RedisLock extends BaseLock
 
     private $hbThread = null;
 
-    private $resultOK = "OK";
+    private $lockOK = "OK";
+
+    private $releaseOK = 1;
 
     /**
      * 续租线程
@@ -52,7 +54,7 @@ class RedisLock extends BaseLock
     public function lock(): bool
     {
         try {
-            if ($this->resultOK == $this->client->setNxPx(self::$key, self::$val, self::$ttl)) {
+            if ($this->lockOK == $this->client->set(self::$key, self::$val, self::$ttl)) {
                 /*
                 // 续租线程
                 new RenewTask(new IRenewalHandler() {
@@ -84,10 +86,11 @@ class RedisLock extends BaseLock
     public function release(): bool
     {
         try {
-            $this->client->delete(self::$key, self::$val);
-            // 释放续租线程
-            
-            return true;
+            if ($this->releaseOK === $this->client->delete(self::$key, self::$val)) {
+                // 释放续租线程
+
+                return true;
+            }
         } catch(LockException $e) {
             // error log
             throw $e;
